@@ -645,24 +645,26 @@ for (let i = 0; i < allStars.length; i++) {
     let Ycoordinate = gsap.utils.random(negative_h, h, 10);
     let childOrder = i + 1;
     let target = ".stars g:nth-child(" + childOrder + ")";
-    stars_anim[i][0] = gsap.timeline({repeat: -1, yoyo: true, paused: false})
-    .to(target, {
-        x : Xcoordinate,
-        y : Ycoordinate,
-        duration : 25
-    }).to(target, {
-        x : Xcoordinate*-1, //Come back and go in the oposite direction.
-        y : Ycoordinate*-1,
-        duration : 50  //Needs to be twice as much to keep the speed consistent. The distance is twice as much as the previous animation.
-    });
-    stars_anim[i][1] = gsap.timeline({repeat: -1, yoyo: true, paused: false})
-    .to(target, {
-        opacity: 0.9,
-        duration: gsap.utils.random(10, 15, 0.5) //So they are not all the same.
-    }).to(target, {
-       opacity:0.2,
-       duration: 3
-    });
+    if(document.querySelectorAll(target).length > 0){ //Avoid non existing elements
+        stars_anim[i][0] = gsap.timeline({repeat: -1, yoyo: true, paused: false})
+        .to(target, {
+            x : Xcoordinate,
+            y : Ycoordinate,
+            duration : 25
+        }).to(target, {
+            x : Xcoordinate*-1, //Come back and go in the oposite direction.
+            y : Ycoordinate*-1,
+            duration : 50  //Needs to be twice as much to keep the speed consistent. The distance is twice as much as the previous animation.
+        });
+        stars_anim[i][1] = gsap.timeline({repeat: -1, yoyo: true, paused: false})
+        .to(target, {
+            opacity: 0.9,
+            duration: gsap.utils.random(10, 15, 0.5) //So they are not all the same.
+        }).to(target, {
+        opacity:0.2,
+        duration: 3
+        });
+}
 }
 //Get height of emoji container to and assign it to stars background to avoid overflow
 //Source: https://www.w3schools.com/jsref/prop_element_offsetheight.asp
